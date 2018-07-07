@@ -48,16 +48,25 @@ namespace MVC5Course.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddNewProduct(ProductViewModel product)
+        public ActionResult AddNewProduct(ProductViewModel data)
         {
             if (!ModelState.IsValid)
             {
-                return View(product);
+                return View(data);
             }
 
-            // TODO
+            var product = new Product
+            {
+                ProductId = data.ProductId,
+                Active = true,
+                Price = data.Price,
+                Stock = data.Stock,
+                ProductName = data.ProductName
+            };
+            db.Product.Add(product);
+            db.SaveChanges();
+
             return RedirectToAction("Index2");
-            //return View();
         }
 
         // GET: Products/Details/5
