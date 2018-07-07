@@ -41,6 +41,25 @@ namespace MVC5Course.Controllers
             return View(data);
         }
 
+        public ActionResult AddNewProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddNewProduct(ProductViewModel product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
+
+            // TODO
+            return RedirectToAction("Index2");
+            //return View();
+        }
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
