@@ -95,6 +95,19 @@ namespace MVC5Course.Controllers
 
         }
 
+        public ActionResult DeleteOne(int id)
+        {
+            var one = db.Product.Find(id);
+            
+            if (one == null)
+                return HttpNotFound();
+
+            db.Product.Remove(one);
+            db.SaveChanges();
+
+            return RedirectToAction("Index2");
+        }
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
