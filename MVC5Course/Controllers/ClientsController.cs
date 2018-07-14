@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using MVC5Course.Models.ViewModels;
 
 namespace MVC5Course.Controllers
 {
@@ -30,10 +32,34 @@ namespace MVC5Course.Controllers
             return View(client.OrderByDescending(x => x.ClientId).Take(10).ToList());
         }
 
-        [Route("Search/{keyword}")]
+        [HttpPost]
+        [Route("BatchUpdate")]
+        [HandleError(ExceptionType = typeof(DbEntityValidationException), View = "Error_DbEntityValidationException")]
+        public ActionResult BatchUpdate(IList<ClientBachViewModel> item)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var vm in item)
+                {
+                    var client = db.Client.Find(vm.ClientId);
+                    client.FirstName = vm.FirstName;
+                    client.MiddleName = vm.MiddleName;
+                    client.LastName = vm.LastName;
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewData.Model = repo.All().Take(10).ToList();
+
+            return View("Index");
+        }
+
+        [Route("Search")]
         public ActionResult Search(string keyword)
         {
-            var client = repo.SearchFirstName(keyword);
+            var client = repo.SearchFirstName(keyword).ToList();
 
             return View("Index", client);
         }
@@ -106,17 +132,29 @@ namespace MVC5Course.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes,IDNumber")] Client client)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
+            // 先取出資料庫原始資料
+            var client = repo.Find(id);
+
+            // 然後再做ModelBinding並驗證，form沒有的欄位並不會被bind，使用EDMX定義的model做驗證
+            // 可以用Include or Exclude控制要bind哪些欄位
+            if (TryUpdateModel(client))
             {
-                repo.UnitOfWork.Context.Entry(client).State = EntityState.Modified;
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
+
+            //if (ModelState.IsValid)
+            //{
+            //    repo.UnitOfWork.Context.Entry(client).State = EntityState.Modified;
+            //    repo.UnitOfWork.Commit();
+            //    return RedirectToAction("Index");
+            //}
             
             ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
-            return View(client);
+            Client item = repo.Find(client.ClientId);
+            return View(item);
         }
 
         // GET: Clients/Delete/5
