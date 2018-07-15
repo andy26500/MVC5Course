@@ -1,11 +1,11 @@
-﻿@model MVC5Course.Models.ProductViewModel
+﻿@model ProductViewModel
 
 @{
     ViewBag.Title = "AddNewProduct";
 }
 
+@ViewData.ModelState
 <h2>AddNewProduct</h2>
-
 
 @using (Html.BeginForm()) 
 {

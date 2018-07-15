@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MVC5Course.Models
 {
@@ -15,10 +11,10 @@ namespace MVC5Course.Models
         public string ProductName { get; set; }
         [Required]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public Nullable<decimal> Price { get; set; }
+        public decimal? Price { get; set; }
         
         [Required]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public Nullable<decimal> Stock { get; set; }
+        public decimal? Stock { get; set; }
     }
 }

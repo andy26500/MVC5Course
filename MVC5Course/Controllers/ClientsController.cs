@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
 using MVC5Course.Models.ViewModels;
@@ -29,6 +26,19 @@ namespace MVC5Course.Controllers
         public ActionResult Index()
         {
             var client = repo.All().Include(c => c.Occupation);
+
+            var ratings = repo.All().Select(x => x.CreditRating.Value)
+                .Distinct()
+                .OrderBy(x => x)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.ToString(),
+                    Value = x.ToString()
+                })
+                .ToList();
+
+            ViewBag.CreditRating = new SelectList(ratings, "Value", "Text");
+
             return View(client.OrderByDescending(x => x.ClientId).Take(10).ToList());
         }
 
@@ -57,10 +67,20 @@ namespace MVC5Course.Controllers
         }
 
         [Route("Search")]
-        public ActionResult Search(string keyword)
+        public ActionResult Search(string keyword, string creditRating)
         {
             var client = repo.SearchFirstName(keyword).ToList();
+            var ratings = repo.All().Select(x => x.CreditRating.Value)
+                .Distinct()
+                .OrderBy(x => x)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.ToString(),
+                    Value = x.ToString()
+                })
+                .ToList();
 
+            ViewBag.CreditRating = new SelectList(ratings, "Value", "Text");
             return View("Index", client);
         }
 
@@ -191,6 +211,12 @@ namespace MVC5Course.Controllers
                 repo.UnitOfWork.Context.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [ChildActionOnly]
+        public ActionResult Detail_Orders(int id)
+        {
+            return PartialView("OrderList", repo.Find(id).Order.ToList());
         }
     }
 }

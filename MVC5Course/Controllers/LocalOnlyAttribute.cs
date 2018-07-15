@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace MVC5Course.Controllers
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class LocalOnlyAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)

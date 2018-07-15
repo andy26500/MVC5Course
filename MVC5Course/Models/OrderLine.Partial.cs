@@ -1,15 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    
     [MetadataType(typeof(OrderLineMetaData))]
     public partial class OrderLine
     {
     }
     
-    public partial class OrderLineMetaData
+    public class OrderLineMetaData
     {
         [Required]
         public int OrderId { get; set; }

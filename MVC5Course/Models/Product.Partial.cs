@@ -1,15 +1,14 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    
     [MetadataType(typeof(ProductMetaData))]
     public partial class Product
     {
     }
     
-    public partial class ProductMetaData
+    public class ProductMetaData
     {
         [Required]
         public int ProductId { get; set; }
@@ -19,13 +18,13 @@ namespace MVC5Course.Models
         public string ProductName { get; set; }
        
         [Required]
-        public Nullable<decimal> Price { get; set; }
+        public decimal? Price { get; set; }
         
         [Required]
-        public Nullable<bool> Active { get; set; }
+        public bool? Active { get; set; }
         
         [Required]
-        public Nullable<decimal> Stock { get; set; }
+        public decimal? Stock { get; set; }
     
         public virtual ICollection<OrderLine> OrderLine { get; set; }
     }

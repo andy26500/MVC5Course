@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
     public partial class FabricsEntities : DbContext
     {
         public FabricsEntities()

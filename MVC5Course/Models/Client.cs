@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Client
     {
         partial void Init();
     
-    	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    	[SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
             this.Order = new HashSet<Order>();
@@ -28,7 +29,7 @@ namespace MVC5Course.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public Nullable<DateTime> DateOfBirth { get; set; }
         public Nullable<double> CreditRating { get; set; }
         public string XCode { get; set; }
         public Nullable<int> OccupationId { get; set; }
@@ -44,7 +45,7 @@ namespace MVC5Course.Models
         public bool IsDeleted { get; set; }
     
         public virtual Occupation Occupation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
     }
 }

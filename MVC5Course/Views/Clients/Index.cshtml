@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVC5Course.Models.Client>
+﻿@model IEnumerable<Client>
 
 @{
     ViewBag.Title = "Index";
@@ -11,6 +11,7 @@
 </p>
 @using (Html.BeginForm("Search", "Clients", FormMethod.Get, new {}))
 {
+    @Html.DropDownList("CreditRating", null,"---請選擇--", new { @class = "form-control"} )
     @*<input type="search" name="keyword" placeholer="請輸入關鍵字"/>*@
     @Html.TextBox("keyword", null, new { placeholer = "請輸入關鍵字" })
     <input type="submit" value="搜尋"/>

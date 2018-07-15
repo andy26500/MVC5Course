@@ -1,25 +1,24 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using MVC5Course.Models.Attributes;
 
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    
     [MetadataType(typeof(ClientMetaData))]
     public partial class Client : IValidatableObject
     {
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (this.Longitude.HasValue != this.Latitude.HasValue)
+            if (Longitude.HasValue != Latitude.HasValue)
             {
-                yield return new ValidationResult("經緯度必須同時設定", new string[] { "Longitude", "Latitude" });
+                yield return new ValidationResult("經緯度必須同時設定", new[] { "Longitude", "Latitude" });
             }
         }
     }
     
-    public partial class ClientMetaData
+    public class ClientMetaData
     {
         [Required]
         public int ClientId { get; set; }
@@ -42,13 +41,13 @@ namespace MVC5Course.Models
         [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         
-        public Nullable<double> CreditRating { get; set; }
+        public double? CreditRating { get; set; }
         
         [StringLength(7, ErrorMessage="欄位長度不得大於 7 個字元")]
         public string XCode { get; set; }
-        public Nullable<int> OccupationId { get; set; }
+        public int? OccupationId { get; set; }
         
         [StringLength(20, ErrorMessage="欄位長度不得大於 20 個字元")]
         public string TelephoneNumber { get; set; }
@@ -65,9 +64,9 @@ namespace MVC5Course.Models
         [StringLength(15, ErrorMessage="欄位長度不得大於 15 個字元")]
         public string ZipCode { get; set; }
         
-        public Nullable<double> Longitude { get; set; }
+        public double? Longitude { get; set; }
         
-        public Nullable<double> Latitude { get; set; }
+        public double? Latitude { get; set; }
         
         public string Notes { get; set; }
         

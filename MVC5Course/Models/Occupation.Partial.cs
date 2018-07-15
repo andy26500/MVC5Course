@@ -1,15 +1,14 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    
     [MetadataType(typeof(OccupationMetaData))]
     public partial class Occupation
     {
     }
     
-    public partial class OccupationMetaData
+    public class OccupationMetaData
     {
         [Required]
         public int OccupationId { get; set; }

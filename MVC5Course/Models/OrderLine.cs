@@ -9,9 +9,6 @@
 
 namespace MVC5Course.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class OrderLine
     {
         public int OrderId { get; set; }
