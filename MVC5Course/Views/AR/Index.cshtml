@@ -6,5 +6,14 @@
 <h2>Index</h2>
 
 <a href="@Url.Action("FileTest", "AR", new { Area = "", isDownload = true})">
-    <img src="@Url.Action("FileTest", "AR", new { Area = "", isDownload = false})"/>
+    <img src="@Url.Action("FileTest", "AR", new { Area = "", isDownload = false})" />
 </a>
+
+@Ajax.ActionLink("Get Result", "AjaxTest", new AjaxOptions { UpdateTargetId = "randomResult" })
+
+<div id="randomResult"></div>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

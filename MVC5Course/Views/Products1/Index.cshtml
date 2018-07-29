@@ -1,7 +1,7 @@
 ﻿@using X.PagedList
 @using X.PagedList.Mvc
 @using X.PagedList.Mvc.Common
-@model IEnumerable<Product>
+@model IEnumerable<MVC5Course.Models.Product>
 
 @{
     ViewBag.Title = "Index";
@@ -56,3 +56,4 @@
 @Html.PagedListPager(Model as IPagedList, 
     p => Url.Action("Index", new { pageNo = p.ToString()})
     )
+
